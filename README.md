@@ -6,39 +6,72 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <style>
 body{font-family:Poppins,sans-serif}
-.page{animation:slide .45s ease}
+.page{animation:slide .4s ease}
 @keyframes slide{
-from{opacity:0;transform:translateX(30px) scale(.97);filter:blur(4px)}
+from{opacity:0;transform:translateX(30px) scale(.97);filter:blur(5px)}
 to{opacity:1;transform:translateX(0) scale(1);filter:blur(0)}
 }
+
+/* ===== GLOW SYSTEM ===== */
 .card{
-  background:white;color:black;
-  padding:1.4rem;border-radius:1rem;
-  font-weight:600;transition:.3s;cursor:pointer;
-  display:flex;justify-content:space-between;align-items:center;
+  position:relative;
+  background:#050505;
+  color:white;
+  padding:1.3rem;
+  border-radius:1rem;
+  font-weight:600;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  transition:.35s;
+  box-shadow:0 0 15px rgba(34,197,94,.25),0 0 35px rgba(34,197,94,.15);
 }
-.card:hover{background:black;color:white;transform:scale(1.05);border:1px solid white;}
-.back-btn{display:inline-flex;align-items:center;gap:.6rem;padding:.6rem 1.2rem;border-radius:999px;background:linear-gradient(135deg,#111,#333);color:white;font-weight:600;border:1px solid rgba(255,255,255,.2);transition:.35s ease;position:relative;overflow:hidden;cursor:pointer;}
-.back-btn::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(255,255,255,.15),transparent);transform:translateX(-100%);transition:.6s;}
-.back-btn:hover::before{transform:translateX(100%);}
-.back-btn:hover{transform:translateX(-4px) scale(1.03);box-shadow:0 0 18px rgba(255,255,255,.25);}
-.back-btn:active{transform:scale(.95);}
-.back-icon{font-size:1.2rem;}
-.menu-glow{position:relative;overflow:hidden;transition:.3s;}
-.menu-glow::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);opacity:0;transition:.4s;}
-.menu-glow:hover::after{opacity:1;animation:glowMove 1.2s linear infinite;}
-@keyframes glowMove{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
-.menu-glow:active{box-shadow:0 0 15px rgba(255,255,255,.6),0 0 35px rgba(34,197,94,.5);transform:scale(.97);}
-.menu-active{background:black !important;color:white !important;box-shadow:0 0 18px rgba(255,255,255,.6),0 0 40px rgba(34,197,94,.6);}
-.price{font-weight:bold;color:#22c55e;margin-left:0.5rem;}
-.ket-btn{margin-left:0.5rem;background:#facc15;color:black;padding:0.2rem 0.5rem;border-radius:0.5rem;font-size:0.75rem;cursor:pointer;transition:.3s;}
-.ket-btn:hover{background:#eab308;}
-.ket-box{display:none;font-size:0.85rem;color:#facc15;margin-top:0.3rem;padding-left:0.5rem;}
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:1rem;
+  background:linear-gradient(120deg,#22c55e,#3b82f6,#22c55e);
+  filter:blur(18px);
+  opacity:.6;
+  z-index:-1;
+  animation:glow 3s infinite alternate;
+}
+@keyframes glow{from{opacity:.3}to{opacity:.7}}
+
+.card:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 20px rgba(34,197,94,.8),0 0 60px rgba(59,130,246,.7);
+}
+
+.menu-active{
+  box-shadow:0 0 25px rgba(34,197,94,1),0 0 80px rgba(59,130,246,1)!important;
+}
+
+/* buttons */
+.back-btn{
+  padding:.6rem 1.3rem;
+  border-radius:999px;
+  background:black;
+  color:white;
+  font-weight:600;
+  border:1px solid #22c55e;
+  box-shadow:0 0 15px rgba(34,197,94,.6);
+  transition:.3s;
+}
+.back-btn:hover{transform:scale(1.05)}
+
+.price{color:#22c55e;font-weight:bold}
+.ket-btn{background:#facc15;color:black;padding:.2rem .6rem;border-radius:.5rem;font-size:.75rem}
+.ket-box{display:none;color:#facc15;font-size:.85rem;padding-left:.5rem;margin-top:.3rem}
 </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-black via-gray-900 to-white text-white">
+
+<body class="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white">
 
 <header class="p-6 text-center border-b border-gray-700">
 <h1 class="text-4xl font-bold">PasirPogorCell</h1>
@@ -47,38 +80,38 @@ to{opacity:1;transform:translateX(0) scale(1);filter:blur(0)}
 
 <!-- HOME -->
 <section id="home" class="page p-6 max-w-4xl mx-auto grid md:grid-cols-2 gap-6 mt-10">
-<button onclick="openInternet(this)" class="card menu-glow">📶 Paket Internet</button>
-<button onclick="openGame(this)" class="card menu-glow">🎮 Top Up Game</button>
+<button onclick="openInternet(this)" class="card">📶 Paket Internet</button>
+<button onclick="openGame(this)" class="card">🎮 Top Up Game</button>
 </section>
 
 <!-- INTERNET -->
 <section id="internet" class="hidden page p-6 max-w-6xl mx-auto">
-<button onclick="back()" class="back-btn mb-6"><span class="back-icon">←</span> Kembali</button>
+<button onclick="back()" class="back-btn mb-6">← Kembali</button>
 <h2 class="text-2xl font-bold mb-4">Pilih Operator</h2>
-<div id="operatorList" class="grid md:grid-cols-3 gap-4 mb-10"></div>
+<div id="operatorList" class="grid md:grid-cols-3 gap-4"></div>
 </section>
 
 <section id="paketTypes" class="hidden page p-6 max-w-6xl mx-auto">
-<button onclick="back()" class="back-btn mb-6"><span class="back-icon">←</span> Kembali</button>
+<button onclick="back()" class="back-btn mb-6">← Kembali</button>
 <h2 id="paketTitle" class="text-2xl font-bold mb-4"></h2>
-<div id="paketTypeList" class="grid md:grid-cols-3 gap-4 mb-10"></div>
+<div id="paketTypeList" class="grid md:grid-cols-3 gap-4"></div>
 </section>
 
 <section id="operatorDetail" class="hidden page p-6 max-w-6xl mx-auto">
-<button onclick="back()" class="back-btn mb-6"><span class="back-icon">←</span> Kembali</button>
+<button onclick="back()" class="back-btn mb-6">← Kembali</button>
 <h2 id="operatorTitle" class="text-2xl font-bold mb-4"></h2>
 <div id="paketList" class="space-y-3"></div>
 </section>
 
 <!-- GAME -->
 <section id="game" class="hidden page p-6 max-w-6xl mx-auto">
-<button onclick="back()" class="back-btn mb-6"><span class="back-icon">←</span> Kembali</button>
+<button onclick="back()" class="back-btn mb-6">← Kembali</button>
 <h2 class="text-2xl font-bold mb-4">Pilih Game</h2>
-<div id="gameList" class="grid md:grid-cols-3 gap-4 mb-10"></div>
+<div id="gameList" class="grid md:grid-cols-3 gap-4"></div>
 </section>
 
 <section id="gameDetail" class="hidden page p-6 max-w-6xl mx-auto">
-<button onclick="back()" class="back-btn mb-6"><span class="back-icon">←</span> Kembali</button>
+<button onclick="back()" class="back-btn mb-6">← Kembali</button>
 <h2 id="gameTitle" class="text-2xl font-bold mb-4"></h2>
 <div id="topupList" class="space-y-3"></div>
 </section>
@@ -148,7 +181,6 @@ const operators = {
       {nama: "10GB Semua + 35GB + Aplikasi Tanpa Batas 28 Hari", harga: "Rp 120.000", ket: "Streaming & kerja"},
       {nama: "15GB All + 25GB + Unlimited App, Telp & SMS 28 Hari", harga: "Rp 131.000", ket: "Paket lengkap all in one"},
       {nama: "Unlimited 90GB + Unli App + Telp + SMS 28 Hari", harga: "Rp 162.000", ket: "Unlimited maksimal"}
-
     ]
   },
   Axis: {
@@ -511,92 +543,78 @@ const games = {
 ]
 };
 
-/* ================= NAVIGATION ================= */
-let historyStack = [];
+//* ===== NAV ===== */
+let historyStack=[];
 function hideAll(){document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"))}
-function back(){if(historyStack.length===0){return;} const prev = historyStack.pop(); hideAll(); prev();}
-function clearActive(){document.querySelectorAll(".menu-active").forEach(b=>b.classList.remove("menu-active"));}
+function back(){const f=historyStack.pop();if(f){hideAll();f();}}
+function clearActive(){document.querySelectorAll(".menu-active").forEach(x=>x.classList.remove("menu-active"))}
 
-/* ================= INTERNET ================= */
-function openInternet(btn){
-  clearActive();
-  if(btn) btn.classList.add("menu-active");
-  historyStack.push(()=>{hideAll();home.classList.remove("hidden");});
-  hideAll();
-  internet.classList.remove("hidden");
-  renderOperators();
+/* ===== INTERNET ===== */
+function openInternet(b){
+ clearActive();b.classList.add("menu-active");
+ historyStack.push(()=>home.classList.remove("hidden"));
+ hideAll();internet.classList.remove("hidden");
+ operatorList.innerHTML="";
+ Object.keys(operators).forEach(o=>{
+  operatorList.innerHTML+=`<div class="card" onclick="openTypes('${o}')">${o}</div>`;
+ });
+}
+function openTypes(op){
+ historyStack.push(()=>internet.classList.remove("hidden"));
+ hideAll();paketTypes.classList.remove("hidden");
+ paketTitle.innerText=op;
+ paketTypeList.innerHTML="";
+ Object.keys(operators[op]).forEach(t=>{
+  paketTypeList.innerHTML+=`<div class="card" onclick="openPaket('${op}','${t}')">${t}</div>`;
+ });
+}
+function openPaket(op,cat){
+ historyStack.push(()=>paketTypes.classList.remove("hidden"));
+ hideAll();operatorDetail.classList.remove("hidden");
+ operatorTitle.innerText=op+" - "+cat;
+ paketList.innerHTML="";
+ operators[op][cat].forEach((p,i)=>{
+  paketList.innerHTML+=`
+  <div class="card">${p.nama} <span class="price">${p.harga}</span>
+  <button class="ket-btn" onclick="toggleKet('${op}${cat}${i}')">?</button></div>
+  <div id="${op}${cat}${i}" class="ket-box">${p.ket}</div>`;
+ });
+}
+function toggleKet(id){
+ const e=document.getElementById(id);
+ e.style.display=e.style.display=="block"?"none":"block";
 }
 
-function renderOperators(){
-  operatorList.innerHTML="";
-  Object.keys(operators).forEach(op=>{
-    operatorList.innerHTML+=`<button class="card menu-glow" onclick="openPaketTypes('${op}')">${op}</button>`;
-  });
+/* ===== GAME ===== */
+function openGame(b){
+ clearActive();b.classList.add("menu-active");
+ historyStack.push(()=>home.classList.remove("hidden"));
+ hideAll();game.classList.remove("hidden");
+ gameList.innerHTML="";
+ Object.keys(games).forEach(g=>{
+  gameList.innerHTML+=`<div class="card" onclick="openGameDetail('${g}')">${g}</div>`;
+ });
 }
-
-function openPaketTypes(op){
-  currentOperator=op;
-  historyStack.push(()=>{hideAll();internet.classList.remove("hidden");});
-  hideAll();
-  paketTypes.classList.remove("hidden");
-  paketTitle.innerText=op;
-  paketTypeList.innerHTML="";
-  Object.keys(operators[op]).forEach(cat=>{
-    paketTypeList.innerHTML+=`<button class="card menu-glow" onclick="openOperatorDetail('${op}','${cat}')">${cat}</button>`;
-  });
-}
-
-function openOperatorDetail(op,cat){
-  currentOperator=op;
-  historyStack.push(()=>{hideAll();paketTypes.classList.remove("hidden");paketTitle.innerText=op;});
-  hideAll();
-  operatorDetail.classList.remove("hidden");
-  operatorTitle.innerText=`${op} - ${cat}`;
-  paketList.innerHTML="";
-  operators[op][cat].forEach((p,i)=>{
-    paketList.innerHTML+=`
-      <div class="card flex justify-between items-center">
-        <span>${p.nama} <span class="price">${p.harga}</span></span>
-        ${p.ket ? `<button class="ket-btn" onclick="toggleKet('${op}','${cat}',${i})">Keterangan</button>` : ""}
-      </div>
-      ${p.ket ? `<div id="ket-${op}-${cat}-${i}" class="ket-box">${p.ket}</div>` : ""}
-    `;
-  });
-}
-
-function toggleKet(op,cat,i){
-  const el=document.getElementById(`ket-${op}-${cat}-${i}`);
-  if(el) el.style.display=(el.style.display==="block")?"none":"block";
-}
-
-/* ================= GAME ================= */
-function openGame(btn){
-  clearActive();
-  if(btn) btn.classList.add("menu-active");
-  historyStack.push(()=>{hideAll();home.classList.remove("hidden");});
-  hideAll();
-  game.classList.remove("hidden");
-  renderGames();
-}
-
-function renderGames(){
-  gameList.innerHTML="";
-  Object.keys(games).forEach(g=>{
-    gameList.innerHTML+=`<button class="card menu-glow" onclick="openGameDetail('${g}')">${g}</button>`;
-  });
-}
-
 function openGameDetail(g){
-  currentGame=g;
-  historyStack.push(()=>{hideAll();game.classList.remove("hidden");});
+  historyStack.push(()=>game.classList.remove("hidden"));
   hideAll();
   gameDetail.classList.remove("hidden");
-  gameTitle.innerText=g;
-  topupList.innerHTML="";
-  games[g].forEach(t=>{
-    topupList.innerHTML+=`<div class="card">${t.replace(/Rp[\d\.]+/,'<span class="price">$&</span>')}</div>`;
+  gameTitle.innerText = g;
+  topupList.innerHTML = "";
+
+  games[g].forEach(item=>{
+    const harga = item.match(/Rp\s?[\d\.]+/);
+    let text = item;
+
+    if(harga){
+      text = item.replace(harga[0], `<span class="price">${harga[0]}</span>`);
+    }
+
+    topupList.innerHTML += `<div class="card">${text}</div>`;
   });
 }
 </script>
+
 </body>
 </html>
+
