@@ -290,16 +290,27 @@ function closePopular() {
 function showPopular(type) {
   const list = document.getElementById('popularList');
   list.innerHTML = '';
+
+  // Tentukan items
   let items = [];
   if(type === 'paket') items = popularItems.paket;
   else if(type === 'game') items = popularItems.game;
   else items = [...popularItems.paket, ...popularItems.game];
 
+  // Tampilkan items
   items.forEach(item => {
     const li = document.createElement('li');
     li.textContent = item;
     list.appendChild(li);
   });
+
+  // ===== Highlight menu aktif =====
+  const buttons = document.querySelectorAll('#popularModal button');
+  buttons.forEach(btn => btn.classList.remove('menu-active'));
+  
+  if(type === 'paket') document.querySelector('#popularModal button[onclick="showPopular(\'paket\')"]').classList.add('menu-active');
+  else if(type === 'game') document.querySelector('#popularModal button[onclick="showPopular(\'game\')"]').classList.add('menu-active');
+  else if(type === 'all') document.querySelector('#popularModal button[onclick="showPopular(\'all\')"]').classList.add('menu-active');
 }
 function openHarga(){
   const m = document.getElementById("hargaModal");
