@@ -216,17 +216,10 @@ body{
   box-shadow:0 0 15px rgba(34,197,94,.8);
 }
 
-body{
-  background: url("FotoGunung.jpg") no-repeat center center fixed !important;
-  background-size: cover !important;
-}
-<body class="min-h-screen text-white">
-<div class="fixed inset-0 bg-black/70 -z-10"></div>
-
 </style>
 </head>
 
-<body class="min-h-screen text-white">
+<body class="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white">
 
 <!-- MARQUEE -->
 <div class="marquee">
@@ -1038,7 +1031,7 @@ function openPaket(op,cat){
  operators[op][cat].forEach((p,i)=>{
   paketList.innerHTML+=`
   <div class="card">${p.nama} <span class="price">${p.harga}</span>
-  <button class="ket-btn" onclick="toggleKet('${op}${cat}${i}')">info</button></div>
+  <button class="ket-btn" onclick="toggleKet('${op}${cat}${i}')">?</button></div>
   <div id="${op}${cat}${i}" class="ket-box">${p.ket}</div>`;
  });
 }
